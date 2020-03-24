@@ -3,7 +3,7 @@ module PrintTheRainbow.Color (
   IsColor(..),
 ) where
 
-import           PrintTheRainbow.Color.Ansi24 (Ansi24(..), putAnsi24)
+import           PrintTheRainbow.Color.Ansi24 (Ansi24(..))
 import           PrintTheRainbow.Color.Rgb24 (Rgb24(..))
 import           PrintTheRainbow.Placement (Placement(..))
 
@@ -12,9 +12,6 @@ newtype Color = Color
   }
 
 class IsColor color where
-  putColor :: Placement -> color -> String
-  putColor placement = putAnsi24 placement . Ansi24 . unColor . toColor
-
   toColor :: color -> Color
   toColor = either id id . toColorE
 
