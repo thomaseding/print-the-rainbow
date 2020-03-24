@@ -1,5 +1,6 @@
 module PrintTheRainbow.AnsiColor (
   IsAnsiColor(..),
+  putReset,
 ) where
 
 import           PrintTheRainbow.Color (IsColor(..))
@@ -7,6 +8,9 @@ import           PrintTheRainbow.Color.Ansi8 (Ansi8(..), putAnsi8)
 import           PrintTheRainbow.Color.Ansi24 (Ansi24(..), putAnsi24)
 import           PrintTheRainbow.Color.Rgb24 (Rgb24(..))
 import           PrintTheRainbow.Placement (Placement(..))
+
+putReset :: String
+putReset = "\ESC[0m"
 
 class IsColor color => IsAnsiColor color where
   putColor :: Placement -> color -> String

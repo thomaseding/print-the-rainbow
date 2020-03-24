@@ -78,4 +78,3 @@ putAnsi8 placement ansi =
         Background -> base + 10
   in "\ESC[" ++ adjusted ++ "m"
 
-

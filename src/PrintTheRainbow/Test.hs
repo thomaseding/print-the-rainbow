@@ -11,8 +11,28 @@ main :: IO ()
 
 mkPutTest :: IsColor color => Placement -> color -> IO ()
 mkPutTest placement color = do
-  let fore = putColor Foreground color
-      back = putColor Background color
-  putStr fore
-  putStr back
+  let foreColor = putColor Foreground color
+      backColor = putColor Background color
+
+  putStr "A"
+  putStr foreColor
+  putStr "B"
+  putReset
+  putStr "C"
+  putStr backColor
+  putStr "D"
+  putReset
+  putStr "E"
+  putStr foreColor
+  putStr backColor
+  putStr "F"
+  putReset
+  putStr "G"
+  putStr backColor
+  putStr foreColor
+  putStr "H"
+  putReset
+  putStr "I"
+
+  putStrLn ""
 
