@@ -1,9 +1,8 @@
 module PrintTheRainbow.Placement (
 ) where
 
-
 data Placement
-    = Foreground
-    | Background
-
+  = Foreground
+  | Background
+  deriving (Show, Eq, Ord)
 
