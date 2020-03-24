@@ -5,26 +5,26 @@ module PrintTheRainbow.Color (
 
 import           PrintTheRainbow.Color.Ansi24 (Ansi24(..), putAnsi24)
 import           PrintTheRainbow.Color.Rgb24 (Rgb24(..))
-import           PrintTheRainbow.Placement (Placement)
+import           PrintTheRainbow.Placement (Placement(..))
 
 newtype Color = Color
   { unColor :: Rgb24
   }
 
-class IsColor c where
-  putColor :: Placement -> c -> String
+class IsColor color where
+  putColor :: Placement -> color -> String
   putColor placement = putAnsi24 placement . Ansi24 . unColor . toColor
 
-  toColor :: c -> Color
+  toColor :: color -> Color
   toColor = either id id . toColorE
 
-  fromColor :: Color -> c
+  fromColor :: Color -> color
   fromColor = either id id . fromColorE
 
-  toColorE :: c -> Either Color Color
+  toColorE :: color -> Either Color Color
   toColorE = Right . toColor
 
-  fromColorE :: Color -> Either c c
+  fromColorE :: Color -> Either color color
   fromColorE = Right . fromColor
 
   {-# MINIMAL
