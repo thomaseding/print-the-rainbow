@@ -1,4 +1,6 @@
 module PrintTheRainbow.Color.Ansi8 (
+  Ansi8(..),
+  put,
 ) where
 
 import           PrintTheRainbow.Color ()

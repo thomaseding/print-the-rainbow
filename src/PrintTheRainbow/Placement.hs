@@ -1,4 +1,5 @@
 module PrintTheRainbow.Placement (
+  Placement(..),
 ) where
 
 data Placement

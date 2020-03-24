@@ -1,9 +1,9 @@
 module PrintTheRainbow.Color (
-    Color,
-    IsColor(..),
+  Color,
+  IsColor(..),
 ) where
 
-import           PrintTheRainbow.Color.Rgb.Type (Rgb24)
+import           PrintTheRainbow.Color.Rgb24.Type (Rgb24)
 
 newtype Color = Color
   { unColor :: Rgb24
@@ -16,13 +16,17 @@ class IsColor c where
   fromColor :: Color -> c
   fromColor = either id id . fromColorE
 
-  toColorE :: Either Color Color
+  toColorE :: c -> Either Color Color
   toColorE = Right . toColor
 
   fromColorE :: Color -> Either c c
   fromColorE = Right . fromColor
 
   {-# MINIMAL toColor, fromColor | toColorE, fromColorE #-}
+
+instance IsColor Color where
+  toColor = id
+  fromColor = id
 
 instance IsColor Rgb24 where
   toColor = Color
