@@ -3,13 +3,18 @@ module PrintTheRainbow.Color (
   IsColor(..),
 ) where
 
-import           PrintTheRainbow.Color.Rgb24.Type (Rgb24)
+import           PrintTheRainbow.Color.Ansi24 (Ansi24(..), putAnsi24)
+import           PrintTheRainbow.Color.Rgb24 (Rgb24(..))
+import           PrintTheRainbow.Placement (Placement)
 
 newtype Color = Color
   { unColor :: Rgb24
   }
 
 class IsColor c where
+  putColor :: Placement -> c -> String
+  putColor placement = putAnsi24 placement . Ansi24 . unColor . toColor
+
   toColor :: c -> Color
   toColor = either id id . toColorE
 
@@ -22,7 +27,9 @@ class IsColor c where
   fromColorE :: Color -> Either c c
   fromColorE = Right . fromColor
 
-  {-# MINIMAL toColor, fromColor | toColorE, fromColorE #-}
+  {-# MINIMAL
+    toColor,  fromColor |
+    toColorE, fromColorE #-}
 
 instance IsColor Color where
   toColor = id
@@ -31,4 +38,8 @@ instance IsColor Color where
 instance IsColor Rgb24 where
   toColor = Color
   fromColor = unColor
+
+instance IsColor Ansi24 where
+  toColor = toColor . unAnsi24
+  fromColor = Ansi24 . fromColor
 

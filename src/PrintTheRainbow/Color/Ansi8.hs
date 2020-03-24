@@ -1,6 +1,6 @@
 module PrintTheRainbow.Color.Ansi8 (
   Ansi8(..),
-  put,
+  putAnsi8,
 ) where
 
 import           PrintTheRainbow.Color ()
@@ -49,12 +49,12 @@ instance IsColor Ansi24 where
 
   fromColorE color =
     let rgb = fromColor color
-        f rgb' = (distance rgb rgb', rgb')
+        f rgb' = (distanceSquared rgb rgb', rgb')
         closest = snd $ minimumBy fst $ map (f . toColor) [0..]
     in Left closest
 
-put :: Placement -> Ansi24 -> String
-put placement ansi =
+putAnsi8 :: Placement -> Ansi24 -> String
+putAnsi8 placement ansi =
   let base = case ansi of
         Black         -> 30
         Red           -> 31
